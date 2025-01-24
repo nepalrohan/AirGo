@@ -19,7 +19,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false
     },
     capacity: {type:DataTypes.INTEGER,
-      allowNull:false
+      allowNull:false,
+      validate:{
+        max:1000,
+      }
     }
   }, {
     sequelize,
@@ -27,3 +30,6 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Airplane;
 };
+
+
+
