@@ -23,60 +23,48 @@ async create(data){
 
 
 async destroy(data){
-    try {
+
         const response = await this.model.destroy({
             where:{
                 id:data
             }
         });
         return response;
-    } catch (error) {
-        Logger.error('Something went wrong in Crud Repo :destroy');
-        throw error;
-    }
+   
+     
 }
 
 
 async get(data){
-    try {
+ 
         const response = await this.model.findByPk(data);
         return response;
-    } catch (error) {
-        Logger.error('Something went wrong in Crud Repo :get');
-        throw error;
-    }
+  
 }
 
 
 
 async getAll(){
-    try {
+   
         const response = await this.model.findAll();
         return response;
-    } catch (error) {
-        Logger.error('Something went wrong in Crud Repo :getAll');
-        throw error;
-    }
+   
 }
 
 
 
 async update(data, id){
-    try {
+  
         const response = await this.model.update(data, {
             where:{id:id}
         });
         return response;
-    } catch (error) {
-        Logger.error('Something went wrong in Crud Repo :update');
-        throw error;
-    }
-}
+   
 
  }
 
 
 
 
-
+ }
  module.exports = CrudRepository;
