@@ -6,7 +6,7 @@ function validateCreateRequest(req, res, next) {
   if (!req.body.name) {
     ErrorResponse.message = "Something went wrong creating airport";
     ErrorResponse.error = new AppError(
-      ["Name not found in incomming requets"],
+      ["Name not found in incomming request"],
       StatusCodes.BAD_REQUEST
     );
 
@@ -16,7 +16,7 @@ function validateCreateRequest(req, res, next) {
   if (!req.body.code) {
     ErrorResponse.message = "Something went wrong creating airport";
     ErrorResponse.error = new AppError(
-      ["Code not found in incomming requets"],
+      ["Code not found in incomming request"],
       StatusCodes.BAD_REQUEST
     );
 
@@ -26,7 +26,7 @@ function validateCreateRequest(req, res, next) {
   if (!req.body.cityId) {
     ErrorResponse.message = "Something went wrong creating airport";
     ErrorResponse.error = new AppError(
-      ["CityId not found in incomming requets"],
+      ["CityId not found in incomming request"],
       StatusCodes.BAD_REQUEST
     );
 
