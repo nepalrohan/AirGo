@@ -2,7 +2,7 @@ const { FlightRepository } = require("../repositories");
 const  AppError  = require("../utils/errors/app-error.js");
 const flightRepository = new FlightRepository();
 const { StatusCodes } = require("http-status-codes");
-
+const {Op} = require('sequelize')
 async function createFlight(data) {
   try {
     const flight = await flightRepository.create(data);
@@ -25,9 +25,52 @@ async function createFlight(data) {
 }
 
 
+
+async function getAllFlights(query) {
+
+  let customFilter = {};
+  if(query.trips){
+    [departureAirportId, arrivalAirportId] = query.trips.split("-");
+    customFilter.departureAirportId = departureAirportId;
+    customFilter.arrivalAirportId = arrivalAirportId;
+  }
+
+  
+if(query.price){
+  [minPrice, maxPrice] = query.price.split("-");
+  customFilter.price = {
+ [Op.between]: [minPrice, (maxPrice===undefined?1000000:maxPrice)]
+  };
+}
+
+
+
+
+if(query.travellers){
+  customFilter.totalSeats={
+    [Op.gte]: query.travellers
+  }
+}
+
+try {
+  
+  const flights = await flightRepository.getAllFlights(customFilter);
+  return flights;
+
+} catch (error) {
+  console.log(error)
+  throw new AppError(
+      "Cannot fetch data of all the flights",
+      StatusCodes.INTERNAL_SERVER_ERROR
+    );
+}
+
+}
+
+
 module.exports = {
   createFlight,
- 
+ getAllFlights
 };
 
 
